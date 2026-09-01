@@ -18,24 +18,16 @@ public class LoginPage {
 
     // 🚨 INTENTIONALLY BROKEN LOCATORS TO TRIGGER THE ORCHESTRATOR 🚨
     
-    // Original: [data-test='username']
-    // [AUTO-HEALED] Original: By.cssSelector("[data-test='mynameisgod']")
-        private final By usern = By.cssSelector("[data-test='username']");
-            
-    // Original: password
-    // [AUTO-HEALED] Original: By.id("pas")
-        private final By passs = By.id("password");
-            
-    // Original: login-button
-    // [AUTO-HEALED] Original: By.name("logbutt")
-        private final By button = By.id("login-button");
+    private final By usern = By.cssSelector("[data-test='username']");
+        
+    private final By passs = By.id("password");
+        
+    // [AUTO-HEALED] Original: By.id("logbutt")
+        private final By button = By.id("logbutt");
     
-    
-    // Original: [data-test='er'] (assuming it should be error)
     private final By errorMessage = By.cssSelector("[data-test='error-message-dynamic']");
 
     public void login(String user, String pass) {
-        // When these waits fail to find the broken locators, HealingWebDriver will intercept it!
         wait.until(ExpectedConditions.visibilityOfElementLocated(usern)).sendKeys(user);
         logAndWait("Entered username");
         
