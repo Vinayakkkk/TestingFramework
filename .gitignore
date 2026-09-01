@@ -10,6 +10,13 @@ cat > .gitignore <<'EOF'
 # Maven build
 target/
 
+# Source repair backups
+*.bak
+
+# Runtime learning/cache
+healing-cache.json
+EOF
+
 # Runtime reports
 reports/
 
