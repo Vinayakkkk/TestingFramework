@@ -1,0 +1,21 @@
+cat > .gitignore <<'EOF'
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Maven build
+target/
+
+# Runtime reports
+reports/
+
+# Runtime logs
+*.log
+
+# Runtime cache and learning data
+cache/
+EOF
