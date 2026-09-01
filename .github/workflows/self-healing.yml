@@ -1,4 +1,4 @@
-name: Self-Healing Framework CI
+name: Self-Healing CI
 
 on:
   push:
@@ -16,11 +16,15 @@ jobs:
 
     steps:
 
-      # 1. Checkout Framework2
       - name: Checkout Framework2
         uses: actions/checkout@v4
 
-      # 2. Setup Java 21
+      - name: Checkout Self-Healing Plugin
+        uses: actions/checkout@v4
+        with:
+          repository: Vinayakkkk/Self-Healing-Plugin
+          path: self-healing-plugin
+
       - name: Setup Java 21
         uses: actions/setup-java@v4
         with:
@@ -28,28 +32,29 @@ jobs:
           java-version: '21'
           cache: maven
 
-      # 3. Setup Chrome
+      - name: Build Self-Healing Plugin
+        working-directory: self-healing-plugin
+        run: |
+          mvn --batch-mode clean install -DskipTests
+
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
 
-      # 4. Verify Java and Chrome
       - name: Verify Environment
         run: |
           java -version
           mvn -version
           google-chrome --version
 
-      # 5. Run ONLY the healing test
-      - name: Run Self-Healing Login Test
+      - name: Run Self-Healing Test
         run: |
-          mvn clean test \
+          mvn --batch-mode clean test \
             -Dtest=LoginTest \
             -Dheadless=true \
             -Dai.enabled=false
 
-      # 6. Upload healing reports even if test fails
       - name: Upload Healing Reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -58,15 +63,4 @@ jobs:
           path: |
             reports/
             target/surefire-reports/
-          if-no-files-found: ignore
-
-      # 7. Upload logs if generated
-      - name: Upload Execution Logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: execution-logs
-          path: |
-            *.log
-            target/*.log
           if-no-files-found: ignore
