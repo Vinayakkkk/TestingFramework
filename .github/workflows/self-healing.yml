@@ -1,4 +1,4 @@
-name: Self-Healing CI
+name: Self-Healing Framework CI
 
 on:
   push:
@@ -16,15 +16,20 @@ jobs:
 
     steps:
 
+      # 1. Checkout Framework2
       - name: Checkout Framework2
         uses: actions/checkout@v4
 
+      # 2. Checkout private Self-Healing Plugin
       - name: Checkout Self-Healing Plugin
         uses: actions/checkout@v4
         with:
           repository: Vinayakkkk/Self-Healing-Plugin
+          ref: main
+          token: ${{ secrets.PLUGIN_REPO_TOKEN }}
           path: self-healing-plugin
 
+      # 3. Setup Java 21
       - name: Setup Java 21
         uses: actions/setup-java@v4
         with:
@@ -32,29 +37,34 @@ jobs:
           java-version: '21'
           cache: maven
 
+      # 4. Build and install Self-Healing Plugin
       - name: Build Self-Healing Plugin
         working-directory: self-healing-plugin
         run: |
           mvn --batch-mode clean install -DskipTests
 
+      # 5. Setup Chrome
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
 
+      # 6. Verify Environment
       - name: Verify Environment
         run: |
           java -version
           mvn -version
           google-chrome --version
 
-      - name: Run Self-Healing Test
+      # 7. Run ONLY the healing test
+      - name: Run Self-Healing Login Test
         run: |
           mvn --batch-mode clean test \
             -Dtest=LoginTest \
             -Dheadless=true \
             -Dai.enabled=false
 
+      # 8. Upload healing reports
       - name: Upload Healing Reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -63,4 +73,15 @@ jobs:
           path: |
             reports/
             target/surefire-reports/
+          if-no-files-found: ignore
+
+      # 9. Upload execution logs
+      - name: Upload Execution Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: execution-logs
+          path: |
+            *.log
+            target/*.log
           if-no-files-found: ignore
