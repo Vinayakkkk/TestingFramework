@@ -22,7 +22,7 @@ public class LoginPage {
         
     private final By passs = By.id("password");
         
-    // [AUTO-HEALED] Original: By.id("logbutt")
+   
         private final By button = By.id("logbutt");
     
     private final By errorMessage = By.cssSelector("[data-test='error-message-dynamic']");
