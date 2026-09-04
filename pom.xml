@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -9,14 +10,40 @@
     <artifactId>TestNG-POM-Framework</artifactId>
     <version>1.0</version>
 
-    <!-- Added proper Java version properties so Maven doesn't fail -->
+    <!-- ====================================================== -->
+    <!-- Java -->
+    <!-- ====================================================== -->
+
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <!-- ====================================================== -->
+    <!-- Nexus Repository -->
+    <!-- ====================================================== -->
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus-releases</id>
+            <url>http://localhost:8081/repository/maven-releases/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <repositories>
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://localhost:8081/repository/maven-releases/</url>
+        </repository>
+    </repositories>
+
+    <!-- ====================================================== -->
+    <!-- Dependencies -->
+    <!-- ====================================================== -->
+
     <dependencies>
+
         <!-- Selenium -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -39,37 +66,45 @@
             <version>5.8.0</version>
         </dependency>
 
-        <!-- Your Self-Healing Framework Dependency -->
+        <!-- Vinayak Self-Healing Framework -->
         <dependency>
             <groupId>com.vinayak</groupId>
             <artifactId>vinayak-healing-plugin</artifactId>
             <version>2.0.0</version>
         </dependency>
+
     </dependencies>
+
+    <!-- ====================================================== -->
+    <!-- Build -->
+    <!-- ====================================================== -->
 
     <build>
         <plugins>
-            <!-- Maven Compiler Plugin to enforce Java 17 -->
+            <!-- Maven Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
             </plugin>
-            
-            <!-- Maven Surefire Plugin to run TestNG tests -->
+
+            <!-- TestNG / Surefire -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>
             </plugin>
 
-            <!-- Your Self-Healing Framework Plugin -->
+            <!-- ================================================== -->
+            <!-- Vinayak AI Self-Healing Maven Plugin -->
+            <!-- ================================================== -->
             <plugin>
                 <groupId>com.vinayak</groupId>
                 <artifactId>vinayak-healing-plugin</artifactId>
-                <version>2.0.0</version> <!-- CHANGED FROM 1.0-SNAPSHOT -->
+                <version>2.0.0</version>
                 <executions>
                     <execution>
+                        <id>healing-setup</id>
                         <phase>initialize</phase>
                         <goals>
                             <goal>setup</goal>
