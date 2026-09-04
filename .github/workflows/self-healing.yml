@@ -20,12 +20,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }} # Required to push auto-repaired code back
 
       # 2. Checkout the Plugin Repository
-      # This pulls your plugin code into a subfolder so we can build it
       - name: Checkout Self-Healing Plugin
         uses: actions/checkout@v4
         with:
-          repository: Vinayakkkk/Self-Healing-Plugin # Your plugin repo URL
-          path: plugin-source # Puts it in a temporary folder
+          repository: Vinayakkkk/Self-Healing-Plugin 
+          path: plugin-source 
+          token: ${{ secrets.PLUGIN_REPO_TOKEN }}
 
       # 3. Setup Java 21
       - name: Setup Java 21
