@@ -19,7 +19,8 @@ public class LoginPage {
     // 🚨 INTENTIONALLY BROKEN LOCATORS TO TRIGGER THE ORCHESTRATOR 🚨
     
     
-        private final By usern = By.cssSelector("[data-test='myname']");
+    // [AUTO-HEALED] Original: By.cssSelector("[data-test='myname']")
+            private final By usern = By.cssSelector("[data-test='username']");
             
    
         private final By passs = By.id("word");
