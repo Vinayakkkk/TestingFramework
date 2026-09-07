@@ -19,10 +19,10 @@ public class LoginPage {
     // 🚨 INTENTIONALLY BROKEN LOCATORS TO TRIGGER THE ORCHESTRATOR 🚨
     
     
-        private final By usern = By.cssSelector("[data-test='username']");
+        private final By usern = By.cssSelector("[data-test='myname']");
             
    
-        private final By passs = By.id("password");
+        private final By passs = By.id("word");
             
     
     // [AUTO-HEALED] Original: By.id("mytroot")
