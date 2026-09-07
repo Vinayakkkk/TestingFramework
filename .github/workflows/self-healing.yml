@@ -9,8 +9,8 @@ on:
       - main
   workflow_dispatch:
 
-  permissions:
-  contents: write
+permissions:
+contents: write
 
 jobs:
   self-healing-test:
