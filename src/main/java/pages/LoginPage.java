@@ -26,7 +26,7 @@ public class LoginPage {
             
     
     // [AUTO-HEALED] Original: By.id("mytroot")
-            private final By button = By.id("login-button");
+            private final By button = By.id("mylifemyrule");
     
     
     // Original: [data-test='er'] (assuming it should be error)
